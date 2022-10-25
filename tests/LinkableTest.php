@@ -1,8 +1,8 @@
 <?php
 
-namespace :vendor_namespace\Tests;
+namespace Esign\Linkable\Tests;
 
-class :studly_package_nameTest extends TestCase
+class LinkableTest extends TestCase
 {
     /** @test */
     public function test()
