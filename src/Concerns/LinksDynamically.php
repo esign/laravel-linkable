@@ -3,16 +3,13 @@
 namespace Esign\Linkable\Concerns;
 
 use Esign\Linkable\Contracts\LinkableUrlContract;
-use Esign\Linkable\Enums\LinkType;
 use Esign\Linkable\Relations\BelongsToLinkable;
 use Illuminate\Support\Arr;
 
 trait LinksDynamically
 {
-    protected function initializeLinksDynamically(): void
-    {
-        $this->mergeCasts(['link_type' => LinkType::class]);
-    }
+    public static string $linkTypeInternal = 'internal';
+    public static string $linkTypeExternal = 'external';
 
     public function linkable(): BelongsToLinkable
     {
@@ -22,8 +19,8 @@ trait LinksDynamically
     public function link(): ?string
     {
         return match ($this->link_type) {
-            LinkType::INTERNAL => $this->linkable instanceof LinkableUrlContract ? $this->linkable->linkableUrl() : null,
-            LinkType::EXTERNAL => $this->link_url,
+            static::$linkTypeInternal => $this->linkable instanceof LinkableUrlContract ? $this->linkable->linkableUrl() : null,
+            static::$linkTypeExternal => $this->link_url,
         };
     }
 
@@ -32,7 +29,7 @@ trait LinksDynamically
         return ! empty($this->link());
     }
 
-    public function linkIsOfType(LinkType | array $type): bool
+    public function linkIsOfType(string | array $type): bool
     {
         return in_array($this->link_type, Arr::wrap($type));
     }
