@@ -14,13 +14,6 @@ You can install the package via composer:
 composer require esign/laravel-linkable
 ```
 
-The package will automatically register a service provider.
-
-Next up, you can publish the configuration file:
-```bash
-php artisan vendor:publish --provider="Esign\Linkable\LinkableServiceProvider" --tag="config"
-```
-
 ## Usage
 
 ### Testing

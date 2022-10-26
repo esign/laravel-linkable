@@ -41,16 +41,6 @@
     "config": {
         "sort-packages": true
     },
-    "extra": {
-        "laravel": {
-            "providers": [
-                "Esign\\Linkable\\LinkableServiceProvider"
-            ],
-            "aliases": {
-                "Linkable": "Esign\\Linkable\\Facades\\LinkableFacade"
-            }
-        }
-    },
     "minimum-stability": "dev",
     "prefer-stable": true
 }

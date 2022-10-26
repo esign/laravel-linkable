@@ -1,12 +1,14 @@
 <?php
 
-namespace Esign\Linkable\Tests;
+namespace Esign\Linkable\Tests\Feature\Relations;
 
+use Esign\Linkable\Concerns\LinksDynamically;
 use Esign\Linkable\Tests\Support\Models\MenuItem;
 use Esign\Linkable\Tests\Support\Models\Post;
+use Esign\Linkable\Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
-class LinkableTest extends TestCase
+class BelongsToLinkableTest extends TestCase
 {
     use DatabaseMigrations;
 
@@ -15,7 +17,7 @@ class LinkableTest extends TestCase
     {
         $post = Post::create(['title' => 'Hello World']);
         $menuItem = MenuItem::create([
-            'link_type' => 'internal',
+            'link_type' => LinksDynamically::$linkTypeInternal,
             'link_entry' => "post:{$post->id}",
             'link_url' => null,
             'link_label' => 'Mijn eerste post',
@@ -30,13 +32,13 @@ class LinkableTest extends TestCase
         $postA = Post::create(['title' => 'Hello World']);
         $postB = Post::create(['title' => 'Hello World 2']);
         MenuItem::create([
-            'link_type' => 'internal',
+            'link_type' => LinksDynamically::$linkTypeInternal,
             'link_entry' => "post:{$postA->id}",
             'link_url' => null,
             'link_label' => 'Mijn eerste post',
         ]);
         MenuItem::create([
-            'link_type' => 'internal',
+            'link_type' => LinksDynamically::$linkTypeInternal,
             'link_entry' => "post:{$postB->id}",
             'link_url' => null,
             'link_label' => 'Mijn tweede post',
