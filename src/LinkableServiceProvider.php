@@ -18,7 +18,7 @@ class LinkableServiceProvider extends ServiceProvider
         $this->mergeConfigFrom($this->configPath(), 'linkable');
 
         $this->app->singleton('linkable', function () {
-            return new Linkable;
+            return new Linkable();
         });
     }
 
