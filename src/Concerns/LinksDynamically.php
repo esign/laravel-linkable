@@ -13,7 +13,7 @@ trait LinksDynamically
 
     public function linkable(): SingleColumnMorphTo
     {
-        $morphType = SingleColumnMorphTo::getSingleColumnMorphingType($this, 'link_entry');
+        $morphType = SingleColumnMorphTo::getSingleColumnMorphingType($this, 'linkable_model');
 
         $query = $morphType
             ? $this->newRelatedInstance(static::getActualClassNameForMorph($morphType))->newQuery()
@@ -22,7 +22,7 @@ trait LinksDynamically
         return new SingleColumnMorphTo(
             query: $query,
             parent: $this,
-            foreignKey: 'link_entry',
+            foreignKey: 'linkable_model',
             ownerKey: 'id',
             relation: 'linkable'
         );

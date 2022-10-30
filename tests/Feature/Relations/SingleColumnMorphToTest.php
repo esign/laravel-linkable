@@ -16,7 +16,7 @@ class SingleColumnMorphToTest extends TestCase
     public function it_can_query_a_related_model()
     {
         $post = Post::create(['title' => 'Hello World']);
-        $menuItem = MenuItem::create(['link_entry' => "post:{$post->id}"]);
+        $menuItem = MenuItem::create(['linkable_model' => "post:{$post->id}"]);
 
         $this->assertTrue($menuItem->linkable->is($post));
     }
@@ -24,7 +24,7 @@ class SingleColumnMorphToTest extends TestCase
     /** @test */
     public function it_can_return_null_if_a_related_model_does_not_exist()
     {
-        $menuItem = MenuItem::create(['link_entry' => "post:non-existing-id"]);
+        $menuItem = MenuItem::create(['linkable_model' => "post:non-existing-id"]);
 
         $this->assertNull($menuItem->linkable);
     }
@@ -32,8 +32,8 @@ class SingleColumnMorphToTest extends TestCase
     /** @test */
     public function it_can_return_null_if_the_foreign_key_is_empty()
     {
-        $menuItemA = MenuItem::create(['link_entry' => null]);
-        $menuItemB = MenuItem::create(['link_entry' => '']);
+        $menuItemA = MenuItem::create(['linkable_model' => null]);
+        $menuItemB = MenuItem::create(['linkable_model' => '']);
 
         $this->assertNull($menuItemA->linkable);
         $this->assertNull($menuItemB->linkable);
@@ -44,7 +44,7 @@ class SingleColumnMorphToTest extends TestCase
     {
         $this->expectException(Error::class);
         $this->expectExceptionMessage('Class "article" not found');
-        $menuItem = MenuItem::create(['link_entry' => 'article:1']);
+        $menuItem = MenuItem::create(['linkable_model' => 'article:1']);
 
         $this->assertNull($menuItem->linkable);
     }
@@ -54,8 +54,8 @@ class SingleColumnMorphToTest extends TestCase
     {
         $postA = Post::create(['title' => 'Hello World']);
         $postB = Post::create(['title' => 'Hello World 2']);
-        MenuItem::create(['link_entry' => "post:{$postA->id}"]);
-        MenuItem::create(['link_entry' => "post:{$postB->id}"]);
+        MenuItem::create(['linkable_model' => "post:{$postA->id}"]);
+        MenuItem::create(['linkable_model' => "post:{$postB->id}"]);
 
         $menuItemLinkables = MenuItem::with('linkable')->get()->map->linkable;
 
@@ -67,10 +67,10 @@ class SingleColumnMorphToTest extends TestCase
     public function it_can_associate_a_model()
     {
         $post = Post::create(['title' => 'Hello World']);
-        $menuItem = MenuItem::create(['link_entry' => null]);
+        $menuItem = MenuItem::create(['linkable_model' => null]);
         $menuItem = $menuItem->linkable()->associate($post);
 
-        $this->assertEquals("post:{$post->id}", $menuItem->link_entry);
+        $this->assertEquals("post:{$post->id}", $menuItem->linkable_model);
         $this->assertTrue($menuItem->linkable->is($post));
     }
 
@@ -78,10 +78,10 @@ class SingleColumnMorphToTest extends TestCase
     public function it_can_associate_a_null_value()
     {
         $post = Post::create(['title' => 'Hello World']);
-        $menuItem = MenuItem::create(['link_entry' => "post:{$post->id}"]);
+        $menuItem = MenuItem::create(['linkable_model' => "post:{$post->id}"]);
         $menuItem = $menuItem->linkable()->associate(null);
 
-        $this->assertNull($menuItem->link_entry);
+        $this->assertNull($menuItem->linkable_model);
         $this->assertNull($menuItem->linkable);
     }
 
@@ -89,13 +89,13 @@ class SingleColumnMorphToTest extends TestCase
     public function it_can_dissociate_a_model()
     {
         $post = Post::create(['title' => 'Hello World']);
-        $menuItem = MenuItem::create(['link_entry' => "post:{$post->id}"]);
+        $menuItem = MenuItem::create(['linkable_model' => "post:{$post->id}"]);
 
         $this->assertTrue($menuItem->linkable->is($post));
 
         $menuItem = $menuItem->linkable()->dissociate();
 
-        $this->assertNull($menuItem->link_entry);
+        $this->assertNull($menuItem->linkable_model);
         $this->assertNull($menuItem->linkable);
     }
 }

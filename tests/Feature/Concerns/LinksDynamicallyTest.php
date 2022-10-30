@@ -18,13 +18,13 @@ class LinksDynamicallyTest extends TestCase
         $post = Post::create(['title' => 'Hello World']);
         $menuItemA = MenuItem::create([
             'link_type' => LinksDynamically::$linkTypeInternal,
-            'link_entry' => "post:{$post->id}",
+            'linkable_model' => "post:{$post->id}",
             'link_url' => null,
             'link_label' => 'Link to hello world',
         ]);
         $menuItemB = MenuItem::create([
             'link_type' => LinksDynamically::$linkTypeInternal,
-            'link_entry' => "post:non-existing-id",
+            'linkable_model' => "post:non-existing-id",
             'link_url' => null,
             'link_label' => 'Link to hello world',
         ]);
@@ -38,13 +38,13 @@ class LinksDynamicallyTest extends TestCase
     {
         $menuItemA = MenuItem::create([
             'link_type' => LinksDynamically::$linkTypeExternal,
-            'link_entry' => null,
+            'linkable_model' => null,
             'link_url' => 'http://localhost',
             'link_label' => 'Link to hello world',
         ]);
         $menuItemB = MenuItem::create([
             'link_type' => LinksDynamically::$linkTypeExternal,
-            'link_entry' => null,
+            'linkable_model' => null,
             'link_url' => null,
             'link_label' => 'Link to hello world',
         ]);
@@ -59,13 +59,13 @@ class LinksDynamicallyTest extends TestCase
         $post = Post::create(['title' => 'Hello World']);
         $menuItemA = MenuItem::create([
             'link_type' => LinksDynamically::$linkTypeInternal,
-            'link_entry' => "post:{$post->id}",
+            'linkable_model' => "post:{$post->id}",
             'link_url' => null,
             'link_label' => 'Link to hello world',
         ]);
         $menuItemB = MenuItem::create([
             'link_type' => LinksDynamically::$linkTypeInternal,
-            'link_entry' => "post:non-existing-id",
+            'linkable_model' => "post:non-existing-id",
             'link_url' => null,
             'link_label' => 'Link to hello world',
         ]);
@@ -80,13 +80,13 @@ class LinksDynamicallyTest extends TestCase
         $post = Post::create(['title' => 'Hello World']);
         $menuItemA = MenuItem::create([
             'link_type' => LinksDynamically::$linkTypeExternal,
-            'link_entry' => null,
+            'linkable_model' => null,
             'link_url' => 'http://localhost',
             'link_label' => 'Link to hello world',
         ]);
         $menuItemB = MenuItem::create([
             'link_type' => LinksDynamically::$linkTypeExternal,
-            'link_entry' => null,
+            'linkable_model' => null,
             'link_url' => null,
             'link_label' => 'Link to hello world',
         ]);
@@ -100,7 +100,7 @@ class LinksDynamicallyTest extends TestCase
     {
         $menuItem = MenuItem::create([
             'link_type' => LinksDynamically::$linkTypeExternal,
-            'link_entry' => null,
+            'linkable_model' => null,
             'link_url' => 'http://localhost',
             'link_label' => 'Link to hello world',
         ]);

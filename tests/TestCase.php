@@ -27,7 +27,7 @@ abstract class TestCase extends BaseTestCase
         Schema::create('menu_items', function (Blueprint $table) {
             $table->id();
             $table->string('link_type')->nullable();
-            $table->string('link_entry')->nullable();
+            $table->string('linkable_model')->nullable();
             $table->string('link_url')->nullable();
             $table->string('link_label')->nullable();
         });
