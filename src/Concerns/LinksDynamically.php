@@ -3,7 +3,7 @@
 namespace Esign\Linkable\Concerns;
 
 use Esign\Linkable\Contracts\LinkableUrlContract;
-use Esign\Linkable\Relations\BelongsToLinkable;
+use Esign\Linkable\Relations\SingleColumnMorphTo;
 use Illuminate\Support\Arr;
 
 trait LinksDynamically
@@ -11,9 +11,21 @@ trait LinksDynamically
     public static string $linkTypeInternal = 'internal';
     public static string $linkTypeExternal = 'external';
 
-    public function linkable(): BelongsToLinkable
+    public function linkable(): SingleColumnMorphTo
     {
-        return new BelongsToLinkable((new static())->newQuery(), $this, 'link_entry', 'id', 'linkable');
+        $morphType = SingleColumnMorphTo::getSingleColumnMorphingType($this, 'link_entry');
+
+        $query = $morphType
+            ? $this->newRelatedInstance(static::getActualClassNameForMorph($morphType))->newQuery()
+            : $this->newQuery()->setEagerLoads([]);
+
+        return new SingleColumnMorphTo(
+            query: $query,
+            parent: $this,
+            foreignKey: 'link_entry',
+            ownerKey: 'id',
+            relation: 'linkable'
+        );
     }
 
     public function link(): ?string
