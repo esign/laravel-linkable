@@ -6,7 +6,7 @@ use Esign\Linkable\Contracts\LinkableUrlContract;
 use Esign\Linkable\Relations\SingleColumnMorphTo;
 use Illuminate\Support\Arr;
 
-trait LinksDynamically
+trait HasDynamicLinks
 {
     public static string $linkTypeInternal = 'internal';
     public static string $linkTypeExternal = 'external';
