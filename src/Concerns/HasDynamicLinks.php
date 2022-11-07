@@ -8,24 +8,14 @@ use Illuminate\Support\Arr;
 
 trait HasDynamicLinks
 {
+    use HasSingleMorphToRelation;
+
     public static string $linkTypeInternal = 'internal';
     public static string $linkTypeExternal = 'external';
 
     public function linkable(): SingleColumnMorphTo
     {
-        $morphType = SingleColumnMorphTo::getSingleColumnMorphingType($this, 'linkable_model');
-
-        $query = $morphType
-            ? $this->newRelatedInstance(static::getActualClassNameForMorph($morphType))->newQuery()
-            : $this->newQuery()->setEagerLoads([]);
-
-        return new SingleColumnMorphTo(
-            query: $query,
-            parent: $this,
-            foreignKey: 'linkable_model',
-            ownerKey: 'id',
-            relation: 'linkable'
-        );
+        return $this->singleColumnMorphTo();
     }
 
     public function link(): ?string

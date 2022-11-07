@@ -7,6 +7,7 @@ use Esign\Linkable\Tests\Support\Models\MenuItem;
 use Esign\Linkable\Tests\Support\Models\Post;
 use Esign\Linkable\Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use PDOException;
 
 class SingleColumnMorphToTest extends TestCase
 {
@@ -30,13 +31,21 @@ class SingleColumnMorphToTest extends TestCase
     }
 
     /** @test */
-    public function it_can_return_null_if_the_foreign_key_is_empty()
+    public function it_can_return_null_if_the_foreign_key_is_null()
     {
-        $menuItemA = MenuItem::create(['linkable_model' => null]);
-        $menuItemB = MenuItem::create(['linkable_model' => '']);
+        $menuItem = MenuItem::create(['linkable_model' => null]);
 
-        $this->assertNull($menuItemA->linkable);
-        $this->assertNull($menuItemB->linkable);
+        $this->assertNull($menuItem->linkable);
+    }
+
+    /** @test */
+    public function it_can_throw_an_exception_if_the_foreign_key_is_empty()
+    {
+        $this->expectException(PDOException::class);
+
+        $menuItem = MenuItem::create(['linkable_model' => '']);
+
+        $this->assertNull($menuItem->linkable);
     }
 
     /** @test */
