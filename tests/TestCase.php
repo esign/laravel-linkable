@@ -2,6 +2,7 @@
 
 namespace Esign\Linkable\Tests;
 
+use Esign\Linkable\LinkableServiceProvider;
 use Esign\Linkable\Tests\Support\Models\Post;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Database\Schema\Blueprint;
@@ -50,5 +51,10 @@ abstract class TestCase extends BaseTestCase
         DB::statement("DROP VIEW IF EXISTS linkables");
 
         parent::tearDown();
+    }
+
+    protected function getPackageProviders($app): array
+    {
+        return [LinkableServiceProvider::class];
     }
 }

@@ -18,7 +18,8 @@
     "require": {
         "php": "^8.0",
         "illuminate/database": "^8.0|^9.0",
-        "illuminate/support": "^8.0|^9.0"
+        "illuminate/support": "^8.0|^9.0",
+        "illuminate/view": "^8.0|^9.0"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.5",
@@ -41,6 +42,13 @@
     },
     "config": {
         "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Esign\\Linkable\\LinkableServiceProvider"
+            ]
+        }
     },
     "minimum-stability": "dev",
     "prefer-stable": true
