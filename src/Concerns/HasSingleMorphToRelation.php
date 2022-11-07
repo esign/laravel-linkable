@@ -3,7 +3,7 @@
 namespace Esign\Linkable\Concerns;
 
 use Esign\Linkable\Relations\SingleColumnMorphTo;
-use Illuminate\Contracts\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 trait HasSingleMorphToRelation
