@@ -38,7 +38,7 @@ class SingleColumnMorphTo extends MorphTo
      * This method is overwritten from the MorphTo base class.
      * Because regular morphing uses two columns we first have to
      * split the single column up into two pieces.
-     * 
+     *
      * @see \Illuminate\Database\Eloquent\Relations\MorphTo
      */
     protected function buildDictionary(Collection $models): void
@@ -58,7 +58,7 @@ class SingleColumnMorphTo extends MorphTo
      * This method is extended from the underlying BelongsTo class.
      * Because regular morphing uses two columns we first have to
      * split the single column up into two pieces.
-     * 
+     *
      * @see \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function addConstraints(): void
@@ -79,9 +79,9 @@ class SingleColumnMorphTo extends MorphTo
      * This method is overwritten from the MorphTo base class.
      * Regular morphing uses two columns to associate a model.
      * Hence why we implode the morph type and morph id into a single column.
-     * 
+     *
      * @see \Illuminate\Database\Eloquent\Relations\MorphTo
-     * 
+     *
      * @param \Illuminate\Database\Eloquent\Model | null $model
      * @return \Illuminate\Database\Eloquent\Model
      */
@@ -108,9 +108,9 @@ class SingleColumnMorphTo extends MorphTo
      * This method is overwritten from the MorphTo base class.
      * Regular morphing uses two columns to associate a model.
      * We should only clear our single morphing column.
-     * 
+     *
      * @see \Illuminate\Database\Eloquent\Relations\MorphTo
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Model
      */
     public function dissociate(): Model

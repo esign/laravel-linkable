@@ -9,7 +9,6 @@ use Esign\Linkable\Tests\Support\Models\Post;
 use Esign\Linkable\Tests\TestCase;
 use Illuminate\Foundation\Testing\Concerns\InteractsWithViews;
 use Illuminate\View\ViewException;
-use InvalidArgumentException;
 
 class DynamicLinkTest extends TestCase
 {
@@ -73,6 +72,5 @@ class DynamicLinkTest extends TestCase
             '<x-linkable-dynamic-link :model="$model">Esign</x-linkable-dynamic-link>',
             ['model' => $model]
         );
-
     }
 }
