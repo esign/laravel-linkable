@@ -3,6 +3,7 @@
 namespace Esign\Linkable\View\Components;
 
 use Esign\Linkable\Concerns\HasDynamicLinks;
+use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\View\Component;
 use InvalidArgumentException;
@@ -20,7 +21,7 @@ class DynamicLink extends Component
         }
     }
 
-    public function render()
+    public function render(): ?View
     {
         return match ($this->model->link_type) {
             HasDynamicLinks::$linkTypeInternal => view('linkable::components.dynamic-link-internal'),

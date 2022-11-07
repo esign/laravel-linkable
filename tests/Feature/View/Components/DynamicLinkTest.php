@@ -58,6 +58,24 @@ class DynamicLinkTest extends TestCase
     }
 
     /** @test */
+    public function it_can_render_null_for_a_non_existing_link_type()
+    {
+        $menuItem = MenuItem::create([
+            'link_type' => 'non-existing-link-type',
+            'linkable_model' => null,
+            'link_url' => null,
+            'link_label' => null,
+        ]);
+
+        $component = $this->blade(
+            '<x-linkable-dynamic-link :model="$model">Esign</x-linkable-dynamic-link>',
+            ['model' => $menuItem]
+        );
+
+        $component->assertSee(null);
+    }
+
+    /** @test */
     public function it_can_throw_an_exception_when_given_a_model_that_does_not_implement_the_dynamic_link_trait()
     {
         $this->expectException(ViewException::class);
