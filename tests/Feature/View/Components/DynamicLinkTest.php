@@ -2,7 +2,7 @@
 
 namespace Esign\Linkable\Tests\Feature\View\Components;
 
-use Esign\Linkable\Concerns\HasDynamicLinks;
+use Esign\Linkable\Concerns\HasDynamicLink;
 use Esign\Linkable\Tests\Support\Models\MenuItem;
 use Esign\Linkable\Tests\Support\Models\ModelWithoutDynamicLinkTrait;
 use Esign\Linkable\Tests\Support\Models\Post;
@@ -18,7 +18,7 @@ class DynamicLinkTest extends TestCase
     public function it_can_render_the_view_for_an_external_link()
     {
         $menuItem = MenuItem::create([
-            'link_type' => HasDynamicLinks::$linkTypeExternal,
+            'link_type' => HasDynamicLink::$linkTypeExternal,
             'linkable_model' => null,
             'link_url' => 'https://www.esign.eu',
             'link_label' => 'Esign',
@@ -40,7 +40,7 @@ class DynamicLinkTest extends TestCase
     {
         $post = Post::create(['title' => 'Hello World']);
         $menuItem = MenuItem::create([
-            'link_type' => HasDynamicLinks::$linkTypeInternal,
+            'link_type' => HasDynamicLink::$linkTypeInternal,
             'linkable_model' => "post:{$post->id}",
             'link_url' => null,
             'link_label' => 'Esign',
@@ -82,7 +82,7 @@ class DynamicLinkTest extends TestCase
         $this->expectExceptionMessage(sprintf(
             'The model `%s` does not use the `%s` trait',
             ModelWithoutDynamicLinkTrait::class,
-            HasDynamicLinks::class,
+            HasDynamicLink::class,
         ));
         $model = new ModelWithoutDynamicLinkTrait();
 

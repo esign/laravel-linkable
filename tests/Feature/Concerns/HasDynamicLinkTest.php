@@ -2,13 +2,13 @@
 
 namespace Esign\Linkable\Tests\Feature\Concerns;
 
-use Esign\Linkable\Concerns\HasDynamicLinks;
+use Esign\Linkable\Concerns\HasDynamicLink;
 use Esign\Linkable\Tests\Support\Models\MenuItem;
 use Esign\Linkable\Tests\Support\Models\Post;
 use Esign\Linkable\Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
-class HasDynamicLinksTest extends TestCase
+class HasDynamicLinkTest extends TestCase
 {
     use DatabaseMigrations;
 
@@ -17,13 +17,13 @@ class HasDynamicLinksTest extends TestCase
     {
         $post = Post::create(['title' => 'Hello World']);
         $menuItemA = MenuItem::create([
-            'link_type' => HasDynamicLinks::$linkTypeInternal,
+            'link_type' => HasDynamicLink::$linkTypeInternal,
             'linkable_model' => "post:{$post->id}",
             'link_url' => null,
             'link_label' => 'Link to hello world',
         ]);
         $menuItemB = MenuItem::create([
-            'link_type' => HasDynamicLinks::$linkTypeInternal,
+            'link_type' => HasDynamicLink::$linkTypeInternal,
             'linkable_model' => "post:non-existing-id",
             'link_url' => null,
             'link_label' => 'Link to hello world',
@@ -37,13 +37,13 @@ class HasDynamicLinksTest extends TestCase
     public function it_can_check_if_it_has_an_external_link()
     {
         $menuItemA = MenuItem::create([
-            'link_type' => HasDynamicLinks::$linkTypeExternal,
+            'link_type' => HasDynamicLink::$linkTypeExternal,
             'linkable_model' => null,
             'link_url' => 'http://localhost',
             'link_label' => 'Link to hello world',
         ]);
         $menuItemB = MenuItem::create([
-            'link_type' => HasDynamicLinks::$linkTypeExternal,
+            'link_type' => HasDynamicLink::$linkTypeExternal,
             'linkable_model' => null,
             'link_url' => null,
             'link_label' => 'Link to hello world',
@@ -58,13 +58,13 @@ class HasDynamicLinksTest extends TestCase
     {
         $post = Post::create(['title' => 'Hello World']);
         $menuItemA = MenuItem::create([
-            'link_type' => HasDynamicLinks::$linkTypeInternal,
+            'link_type' => HasDynamicLink::$linkTypeInternal,
             'linkable_model' => "post:{$post->id}",
             'link_url' => null,
             'link_label' => 'Link to hello world',
         ]);
         $menuItemB = MenuItem::create([
-            'link_type' => HasDynamicLinks::$linkTypeInternal,
+            'link_type' => HasDynamicLink::$linkTypeInternal,
             'linkable_model' => "post:non-existing-id",
             'link_url' => null,
             'link_label' => 'Link to hello world',
@@ -79,13 +79,13 @@ class HasDynamicLinksTest extends TestCase
     {
         $post = Post::create(['title' => 'Hello World']);
         $menuItemA = MenuItem::create([
-            'link_type' => HasDynamicLinks::$linkTypeExternal,
+            'link_type' => HasDynamicLink::$linkTypeExternal,
             'linkable_model' => null,
             'link_url' => 'http://localhost',
             'link_label' => 'Link to hello world',
         ]);
         $menuItemB = MenuItem::create([
-            'link_type' => HasDynamicLinks::$linkTypeExternal,
+            'link_type' => HasDynamicLink::$linkTypeExternal,
             'linkable_model' => null,
             'link_url' => null,
             'link_label' => 'Link to hello world',
@@ -99,15 +99,15 @@ class HasDynamicLinksTest extends TestCase
     public function it_can_check_if_a_link_is_of_type()
     {
         $menuItem = MenuItem::create([
-            'link_type' => HasDynamicLinks::$linkTypeExternal,
+            'link_type' => HasDynamicLink::$linkTypeExternal,
             'linkable_model' => null,
             'link_url' => 'http://localhost',
             'link_label' => 'Link to hello world',
         ]);
 
-        $this->assertTrue($menuItem->linkIsOfType(HasDynamicLinks::$linkTypeExternal));
-        $this->assertTrue($menuItem->linkIsOfType([HasDynamicLinks::$linkTypeExternal, HasDynamicLinks::$linkTypeInternal]));
-        $this->assertFalse($menuItem->linkIsOfType(HasDynamicLinks::$linkTypeInternal));
-        $this->assertFalse($menuItem->linkIsOfType([HasDynamicLinks::$linkTypeInternal]));
+        $this->assertTrue($menuItem->linkIsOfType(HasDynamicLink::$linkTypeExternal));
+        $this->assertTrue($menuItem->linkIsOfType([HasDynamicLink::$linkTypeExternal, HasDynamicLink::$linkTypeInternal]));
+        $this->assertFalse($menuItem->linkIsOfType(HasDynamicLink::$linkTypeInternal));
+        $this->assertFalse($menuItem->linkIsOfType([HasDynamicLink::$linkTypeInternal]));
     }
 }

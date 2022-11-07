@@ -6,7 +6,7 @@ use Esign\Linkable\Contracts\LinkableUrlContract;
 use Esign\Linkable\Relations\SingleColumnMorphTo;
 use Illuminate\Support\Arr;
 
-trait HasDynamicLinks
+trait HasDynamicLink
 {
     use HasSingleMorphToRelation;
 
