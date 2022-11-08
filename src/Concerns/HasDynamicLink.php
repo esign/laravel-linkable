@@ -18,21 +18,31 @@ trait HasDynamicLink
         return $this->singleColumnMorphTo();
     }
 
-    public function link(): ?string
+    public function dynamicLink(): ?string
     {
-        return match ($this->link_type) {
+        return match ($this->dynamicLinkType()) {
             static::$linkTypeInternal => $this->linkable instanceof LinkableUrlContract ? $this->linkable->linkableUrl() : null,
-            static::$linkTypeExternal => $this->link_url,
+            static::$linkTypeExternal => $this->dynamicLinkUrl(),
         };
     }
 
-    public function hasLink(): bool
+    public function hasDynamicLink(): bool
     {
-        return ! empty($this->link());
+        return ! empty($this->dynamicLink());
     }
 
-    public function linkIsOfType(string | array $type): bool
+    public function dynamicLinkIsOfType(string | array $type): bool
     {
-        return in_array($this->link_type, Arr::wrap($type));
+        return in_array($this->dynamicLinkType(), Arr::wrap($type));
+    }
+
+    public function dynamicLinkType(): ?string
+    {
+        return $this->dynamic_link_type;
+    }
+
+    public function dynamicLinkUrl(): ?string
+    {
+        return $this->dynamic_link_url;
     }
 }

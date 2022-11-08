@@ -18,10 +18,10 @@ class DynamicLinkTest extends TestCase
     public function it_can_render_the_view_for_an_external_link()
     {
         $menuItem = MenuItem::create([
-            'link_type' => HasDynamicLink::$linkTypeExternal,
+            'dynamic_link_type' => HasDynamicLink::$linkTypeExternal,
             'linkable_model' => null,
-            'link_url' => 'https://www.esign.eu',
-            'link_label' => 'Esign',
+            'dynamic_link_url' => 'https://www.esign.eu',
+            'dynamic_link_label' => 'Esign',
         ]);
 
         $component = $this->blade(
@@ -40,10 +40,10 @@ class DynamicLinkTest extends TestCase
     {
         $post = Post::create(['title' => 'Hello World']);
         $menuItem = MenuItem::create([
-            'link_type' => HasDynamicLink::$linkTypeInternal,
+            'dynamic_link_type' => HasDynamicLink::$linkTypeInternal,
             'linkable_model' => "post:{$post->id}",
-            'link_url' => null,
-            'link_label' => 'Esign',
+            'dynamic_link_url' => null,
+            'dynamic_link_label' => 'Esign',
         ]);
 
         $component = $this->blade(
@@ -58,13 +58,13 @@ class DynamicLinkTest extends TestCase
     }
 
     /** @test */
-    public function it_can_render_null_for_a_non_existing_link_type()
+    public function it_can_render_null_for_a_non_existing_dynamic_link_type()
     {
         $menuItem = MenuItem::create([
-            'link_type' => 'non-existing-link-type',
+            'dynamic_link_type' => 'non-existing-link-type',
             'linkable_model' => null,
-            'link_url' => null,
-            'link_label' => null,
+            'dynamic_link_url' => null,
+            'dynamic_link_label' => null,
         ]);
 
         $component = $this->blade(

@@ -1,1 +1,1 @@
-<a {{ $attributes->merge(['href' => $model->link()]) }}>{{ $slot }}</a>
+<a {{ $attributes->merge(['href' => $model->dynamicLink()]) }}>{{ $slot }}</a>

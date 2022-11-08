@@ -23,7 +23,7 @@ class DynamicLink extends Component
 
     public function render(): ?View
     {
-        return match ($this->model->link_type) {
+        return match ($this->model->dynamicLinkType()) {
             HasDynamicLink::$linkTypeInternal => view('linkable::components.dynamic-link-internal'),
             HasDynamicLink::$linkTypeExternal => view('linkable::components.dynamic-link-external'),
             default => null,

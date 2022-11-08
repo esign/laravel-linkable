@@ -1,5 +1,5 @@
 <a {{ $attributes->merge([
-    'href' => $model->link(),
+    'href' => $model->dynamicLink(),
     'target' => '_blank',
     'rel' => 'noopener'
 ]) }}>{{ $slot }}</a>
