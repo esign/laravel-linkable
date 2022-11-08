@@ -58,10 +58,11 @@ class Post extends Model implements LinkableUrlContract
 In case you set the `dynamic_link_type` as `external` the `dynamic_link_url` field will be used.
 
 ### Storing linkables
-Instead of using a regular `MorphTo` relation, this package ships with a `SingleColumnMorphTo` relation.    
-Some CMS, including our own, do not allow for morphable relations based on two columns, e.g. `linkable_type` and `linkable_id`.    
-The `SingleColumnMorphTo` combines both the type and id fields into a single column, e.g. `linkable_model`.    
-The value for this single column is stored in the `{model}:{id}` format, e.g. `post:1`.    
+Instead of using a regular `MorphTo` relation, this package ships with a `SingleColumnMorphTo` relation.
+Some CMS, including our own, do not allow for morphable relations based on two columns, e.g. `linkable_type` and `linkable_id`.
+The `SingleColumnMorphTo` combines both the type and id fields into a single column, e.g. `linkable_model`.
+The value for this single column is stored in the `{model}:{id}` format, e.g. `post:1`.
+
 Note that this approach is not ideal and more complex queries using this relationship may not work as expected.
 In case you're able to you may overwrite the `linkable` relation to use Laravel's default `MorphTo` relationship.
 
