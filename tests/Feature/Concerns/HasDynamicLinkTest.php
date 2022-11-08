@@ -171,6 +171,6 @@ class HasDynamicLinkTest extends TestCase
             'dynamic_link_url' => null,
         ]);
 
-        $this->assertEquals('http://localhost', $menuItem->linkable->is($post));
+        $this->assertTrue($menuItem->linkable->is($post));
     }
 }
