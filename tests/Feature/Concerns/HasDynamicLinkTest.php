@@ -4,13 +4,36 @@ namespace Esign\Linkable\Tests\Feature\Concerns;
 
 use Esign\Linkable\Concerns\HasDynamicLink;
 use Esign\Linkable\Tests\Support\Models\MenuItem;
+use Esign\Linkable\Tests\Support\Models\ModelWithRegularMorphToRelation;
 use Esign\Linkable\Tests\Support\Models\Post;
 use Esign\Linkable\Tests\TestCase;
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Support\Facades\Schema;
 
 class HasDynamicLinkTest extends TestCase
 {
     use DatabaseMigrations;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        Schema::create('model_with_regular_morph_to_relations', function (Blueprint $table) {
+            $table->id();
+            $table->string('dynamic_link_type')->nullable();
+            $table->nullableMorphs('linkable', 'linkable_index');
+            $table->string('dynamic_link_url')->nullable();
+            $table->string('dynamic_link_label')->nullable();
+        });
+    }
+
+    protected function tearDown(): void
+    {
+        Schema::dropIfExists('model_with_regular_morph_to_relations');
+
+        parent::tearDown();
+    }
 
     /** @test */
     public function it_can_check_if_it_has_an_internal_link()
@@ -135,5 +158,20 @@ class HasDynamicLinkTest extends TestCase
         ]);
 
         $this->assertEquals('http://localhost', $menuItem->dynamicLinkUrl());
+    }
+
+    /** @test */
+    public function it_can_use_a_regular_morph_to_relation()
+    {
+        $post = Post::create(['title' => 'Hello World']);
+        $menuItem = ModelWithRegularMorphToRelation::create([ 
+            'dynamic_link_type' => HasDynamicLink::$linkTypeInternal,
+            'linkable_type' => 'post',
+            'linkable_id' => $post->id,
+            'dynamic_link_url' => null,
+            'dynamic_link_label' => null,
+        ]);
+
+        $this->assertEquals('http://localhost', $menuItem->linkable->is($post));
     }
 }
