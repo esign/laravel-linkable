@@ -91,6 +91,18 @@ class HasDynamicLinkTest extends TestCase
     }
 
     /** @test */
+    public function it_can_get_null_as_a_link_when_the_link_type_isnt_internal_or_external()
+    {
+        $menuItem = MenuItem::create([
+            'dynamic_link_type' => null,
+            'linkable_model' => null,
+            'dynamic_link_url' => null,
+        ]);
+
+        $this->assertNull($menuItem->dynamicLink());
+    }
+
+    /** @test */
     public function it_can_get_an_external_url()
     {
         $post = Post::create(['title' => 'Hello World']);

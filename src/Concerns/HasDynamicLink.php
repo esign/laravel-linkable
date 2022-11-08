@@ -23,6 +23,7 @@ trait HasDynamicLink
         return match ($this->dynamicLinkType()) {
             static::$linkTypeInternal => $this->linkable instanceof LinkableUrlContract ? $this->linkable->linkableUrl() : null,
             static::$linkTypeExternal => $this->dynamicLinkUrl(),
+            default => null,
         };
     }
 
