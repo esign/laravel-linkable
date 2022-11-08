@@ -164,7 +164,7 @@ class HasDynamicLinkTest extends TestCase
     public function it_can_use_a_regular_morph_to_relation()
     {
         $post = Post::create(['title' => 'Hello World']);
-        $menuItem = ModelWithRegularMorphToRelation::create([ 
+        $menuItem = ModelWithRegularMorphToRelation::create([
             'dynamic_link_type' => HasDynamicLink::$linkTypeInternal,
             'linkable_type' => 'post',
             'linkable_id' => $post->id,

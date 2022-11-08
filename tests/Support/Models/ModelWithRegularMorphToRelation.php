@@ -3,7 +3,6 @@
 namespace Esign\Linkable\Tests\Support\Models;
 
 use Esign\Linkable\Concerns\HasDynamicLink;
-use Esign\Linkable\Relations\SingleColumnMorphTo;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
