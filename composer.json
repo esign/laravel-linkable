@@ -13,6 +13,11 @@
             "name": "Jordy Van der Haegen",
             "email": "jordy.vanderhaegen@gmail.com",
             "role": "Developer"
+        },
+        {
+            "name": "Bart Decorte",
+            "email": "bart@esign.eu",
+            "role": "Developer"
         }
     ],
     "require": {
