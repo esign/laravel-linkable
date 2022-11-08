@@ -24,7 +24,6 @@ class HasDynamicLinkTest extends TestCase
             $table->string('dynamic_link_type')->nullable();
             $table->nullableMorphs('linkable', 'linkable_index');
             $table->string('dynamic_link_url')->nullable();
-            $table->string('dynamic_link_label')->nullable();
         });
     }
 
@@ -43,13 +42,11 @@ class HasDynamicLinkTest extends TestCase
             'dynamic_link_type' => HasDynamicLink::$linkTypeInternal,
             'linkable_model' => "post:{$post->id}",
             'dynamic_link_url' => null,
-            'dynamic_link_label' => 'Link to hello world',
         ]);
         $menuItemB = MenuItem::create([
             'dynamic_link_type' => HasDynamicLink::$linkTypeInternal,
             'linkable_model' => "post:non-existing-id",
             'dynamic_link_url' => null,
-            'dynamic_link_label' => 'Link to hello world',
         ]);
 
         $this->assertTrue($menuItemA->hasDynamicLink());
@@ -63,13 +60,11 @@ class HasDynamicLinkTest extends TestCase
             'dynamic_link_type' => HasDynamicLink::$linkTypeExternal,
             'linkable_model' => null,
             'dynamic_link_url' => 'http://localhost',
-            'dynamic_link_label' => 'Link to hello world',
         ]);
         $menuItemB = MenuItem::create([
             'dynamic_link_type' => HasDynamicLink::$linkTypeExternal,
             'linkable_model' => null,
             'dynamic_link_url' => null,
-            'dynamic_link_label' => 'Link to hello world',
         ]);
 
         $this->assertTrue($menuItemA->hasDynamicLink());
@@ -84,13 +79,11 @@ class HasDynamicLinkTest extends TestCase
             'dynamic_link_type' => HasDynamicLink::$linkTypeInternal,
             'linkable_model' => "post:{$post->id}",
             'dynamic_link_url' => null,
-            'dynamic_link_label' => 'Link to hello world',
         ]);
         $menuItemB = MenuItem::create([
             'dynamic_link_type' => HasDynamicLink::$linkTypeInternal,
             'linkable_model' => "post:non-existing-id",
             'dynamic_link_url' => null,
-            'dynamic_link_label' => 'Link to hello world',
         ]);
 
         $this->assertEquals("http://localhost/posts/{$post->id}", $menuItemA->dynamicLink());
@@ -105,13 +98,11 @@ class HasDynamicLinkTest extends TestCase
             'dynamic_link_type' => HasDynamicLink::$linkTypeExternal,
             'linkable_model' => null,
             'dynamic_link_url' => 'http://localhost',
-            'dynamic_link_label' => 'Link to hello world',
         ]);
         $menuItemB = MenuItem::create([
             'dynamic_link_type' => HasDynamicLink::$linkTypeExternal,
             'linkable_model' => null,
             'dynamic_link_url' => null,
-            'dynamic_link_label' => 'Link to hello world',
         ]);
 
         $this->assertEquals("http://localhost", $menuItemA->dynamicLink());
@@ -125,7 +116,6 @@ class HasDynamicLinkTest extends TestCase
             'dynamic_link_type' => HasDynamicLink::$linkTypeExternal,
             'linkable_model' => null,
             'dynamic_link_url' => 'http://localhost',
-            'dynamic_link_label' => 'Link to hello world',
         ]);
 
         $this->assertTrue($menuItem->dynamicLinkIsOfType(HasDynamicLink::$linkTypeExternal));
@@ -141,7 +131,6 @@ class HasDynamicLinkTest extends TestCase
             'dynamic_link_type' => HasDynamicLink::$linkTypeExternal,
             'linkable_model' => null,
             'dynamic_link_url' => 'http://localhost',
-            'dynamic_link_label' => 'Hello World',
         ]);
 
         $this->assertEquals(HasDynamicLink::$linkTypeExternal, $menuItem->dynamicLinkType());
@@ -154,7 +143,6 @@ class HasDynamicLinkTest extends TestCase
             'dynamic_link_type' => HasDynamicLink::$linkTypeExternal,
             'linkable_model' => null,
             'dynamic_link_url' => 'http://localhost',
-            'dynamic_link_label' => 'Hello World',
         ]);
 
         $this->assertEquals('http://localhost', $menuItem->dynamicLinkUrl());
@@ -169,7 +157,6 @@ class HasDynamicLinkTest extends TestCase
             'linkable_type' => 'post',
             'linkable_id' => $post->id,
             'dynamic_link_url' => null,
-            'dynamic_link_label' => null,
         ]);
 
         $this->assertEquals('http://localhost', $menuItem->linkable->is($post));

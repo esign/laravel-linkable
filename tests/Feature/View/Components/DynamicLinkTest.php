@@ -21,7 +21,6 @@ class DynamicLinkTest extends TestCase
             'dynamic_link_type' => HasDynamicLink::$linkTypeExternal,
             'linkable_model' => null,
             'dynamic_link_url' => 'https://www.esign.eu',
-            'dynamic_link_label' => 'Esign',
         ]);
 
         $component = $this->blade(
@@ -43,7 +42,6 @@ class DynamicLinkTest extends TestCase
             'dynamic_link_type' => HasDynamicLink::$linkTypeInternal,
             'linkable_model' => "post:{$post->id}",
             'dynamic_link_url' => null,
-            'dynamic_link_label' => 'Esign',
         ]);
 
         $component = $this->blade(
@@ -64,7 +62,6 @@ class DynamicLinkTest extends TestCase
             'dynamic_link_type' => 'non-existing-link-type',
             'linkable_model' => null,
             'dynamic_link_url' => null,
-            'dynamic_link_label' => null,
         ]);
 
         $component = $this->blade(

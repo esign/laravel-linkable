@@ -30,7 +30,6 @@ abstract class TestCase extends BaseTestCase
             $table->string('dynamic_link_type')->nullable();
             $table->string('linkable_model')->nullable();
             $table->string('dynamic_link_url')->nullable();
-            $table->string('dynamic_link_label')->nullable();
         });
 
         DB::statement('
