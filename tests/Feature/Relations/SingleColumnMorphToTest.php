@@ -17,25 +17,25 @@ class SingleColumnMorphToTest extends TestCase
     public function it_can_query_a_related_model()
     {
         $post = Post::create(['title' => 'Hello World']);
-        $menuItem = MenuItem::create(['linkable_model' => "post:{$post->id}"]);
+        $menuItem = MenuItem::create(['dynamic_link_linkable_model' => "post:{$post->id}"]);
 
-        $this->assertTrue($menuItem->linkable->is($post));
+        $this->assertTrue($menuItem->dynamicLinkLinkable->is($post));
     }
 
     /** @test */
     public function it_can_return_null_if_a_related_model_does_not_exist()
     {
-        $menuItem = MenuItem::create(['linkable_model' => "post:non-existing-id"]);
+        $menuItem = MenuItem::create(['dynamic_link_linkable_model' => "post:non-existing-id"]);
 
-        $this->assertNull($menuItem->linkable);
+        $this->assertNull($menuItem->dynamicLinkLinkable);
     }
 
     /** @test */
     public function it_can_return_null_if_the_foreign_key_is_null()
     {
-        $menuItem = MenuItem::create(['linkable_model' => null]);
+        $menuItem = MenuItem::create(['dynamic_link_linkable_model' => null]);
 
-        $this->assertNull($menuItem->linkable);
+        $this->assertNull($menuItem->dynamicLinkLinkable);
     }
 
     /** @test */
@@ -43,9 +43,9 @@ class SingleColumnMorphToTest extends TestCase
     {
         $this->expectException(PDOException::class);
 
-        $menuItem = MenuItem::create(['linkable_model' => '']);
+        $menuItem = MenuItem::create(['dynamic_link_linkable_model' => '']);
 
-        $this->assertNull($menuItem->linkable);
+        $this->assertNull($menuItem->dynamicLinkLinkable);
     }
 
     /** @test */
@@ -53,9 +53,9 @@ class SingleColumnMorphToTest extends TestCase
     {
         $this->expectException(Error::class);
         $this->expectExceptionMessage('Class "article" not found');
-        $menuItem = MenuItem::create(['linkable_model' => 'article:1']);
+        $menuItem = MenuItem::create(['dynamic_link_linkable_model' => 'article:1']);
 
-        $this->assertNull($menuItem->linkable);
+        $this->assertNull($menuItem->dynamicLinkLinkable);
     }
 
     /** @test */
@@ -63,10 +63,10 @@ class SingleColumnMorphToTest extends TestCase
     {
         $postA = Post::create(['title' => 'Hello World']);
         $postB = Post::create(['title' => 'Hello World 2']);
-        MenuItem::create(['linkable_model' => "post:{$postA->id}"]);
-        MenuItem::create(['linkable_model' => "post:{$postB->id}"]);
+        MenuItem::create(['dynamic_link_linkable_model' => "post:{$postA->id}"]);
+        MenuItem::create(['dynamic_link_linkable_model' => "post:{$postB->id}"]);
 
-        $menuItemLinkables = MenuItem::with('linkable')->get()->map->linkable;
+        $menuItemLinkables = MenuItem::with('dynamicLinkLinkable')->get()->map->dynamicLinkLinkable;
 
         $this->assertTrue($menuItemLinkables->contains($postA));
         $this->assertTrue($menuItemLinkables->contains($postB));
@@ -76,35 +76,35 @@ class SingleColumnMorphToTest extends TestCase
     public function it_can_associate_a_model()
     {
         $post = Post::create(['title' => 'Hello World']);
-        $menuItem = MenuItem::create(['linkable_model' => null]);
-        $menuItem = $menuItem->linkable()->associate($post);
+        $menuItem = MenuItem::create(['dynamic_link_linkable_model' => null]);
+        $menuItem = $menuItem->dynamicLinkLinkable()->associate($post);
 
-        $this->assertEquals("post:{$post->id}", $menuItem->linkable_model);
-        $this->assertTrue($menuItem->linkable->is($post));
+        $this->assertEquals("post:{$post->id}", $menuItem->dynamic_link_linkable_model);
+        $this->assertTrue($menuItem->dynamicLinkLinkable->is($post));
     }
 
     /** @test */
     public function it_can_associate_a_null_value()
     {
         $post = Post::create(['title' => 'Hello World']);
-        $menuItem = MenuItem::create(['linkable_model' => "post:{$post->id}"]);
-        $menuItem = $menuItem->linkable()->associate(null);
+        $menuItem = MenuItem::create(['dynamic_link_linkable_model' => "post:{$post->id}"]);
+        $menuItem = $menuItem->dynamicLinkLinkable()->associate(null);
 
-        $this->assertNull($menuItem->linkable_model);
-        $this->assertNull($menuItem->linkable);
+        $this->assertNull($menuItem->dynamic_link_linkable_model);
+        $this->assertNull($menuItem->dynamicLinkLinkable);
     }
 
     /** @test */
     public function it_can_dissociate_a_model()
     {
         $post = Post::create(['title' => 'Hello World']);
-        $menuItem = MenuItem::create(['linkable_model' => "post:{$post->id}"]);
+        $menuItem = MenuItem::create(['dynamic_link_linkable_model' => "post:{$post->id}"]);
 
-        $this->assertTrue($menuItem->linkable->is($post));
+        $this->assertTrue($menuItem->dynamicLinkLinkable->is($post));
 
-        $menuItem = $menuItem->linkable()->dissociate();
+        $menuItem = $menuItem->dynamicLinkLinkable()->dissociate();
 
-        $this->assertNull($menuItem->linkable_model);
-        $this->assertNull($menuItem->linkable);
+        $this->assertNull($menuItem->dynamic_link_linkable_model);
+        $this->assertNull($menuItem->dynamicLinkLinkable);
     }
 }

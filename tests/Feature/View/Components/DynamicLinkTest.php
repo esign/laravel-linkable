@@ -19,7 +19,7 @@ class DynamicLinkTest extends TestCase
     {
         $menuItem = MenuItem::create([
             'dynamic_link_type' => HasDynamicLink::$linkTypeExternal,
-            'linkable_model' => null,
+            'dynamic_link_linkable_model' => null,
             'dynamic_link_url' => 'https://www.esign.eu',
         ]);
 
@@ -40,7 +40,7 @@ class DynamicLinkTest extends TestCase
         $post = Post::create(['title' => 'Hello World']);
         $menuItem = MenuItem::create([
             'dynamic_link_type' => HasDynamicLink::$linkTypeInternal,
-            'linkable_model' => "post:{$post->id}",
+            'dynamic_link_linkable_model' => "post:{$post->id}",
             'dynamic_link_url' => null,
         ]);
 
@@ -60,7 +60,7 @@ class DynamicLinkTest extends TestCase
     {
         $menuItem = MenuItem::create([
             'dynamic_link_type' => 'non-existing-link-type',
-            'linkable_model' => null,
+            'dynamic_link_linkable_model' => null,
             'dynamic_link_url' => null,
         ]);
 

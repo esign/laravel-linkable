@@ -5,6 +5,7 @@ namespace Esign\Linkable\Concerns;
 use Esign\Linkable\Relations\SingleColumnMorphTo;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 trait HasSingleMorphToRelation
 {
@@ -14,7 +15,8 @@ trait HasSingleMorphToRelation
         ?string $ownerKey = null
     ): SingleColumnMorphTo {
         $name = $name ?: $this->guessBelongsToRelation();
-        $foreignKey = $foreignKey ?: "{$name}_model";
+        $nameAsSnakeCase = Str::snake($name);
+        $foreignKey = $foreignKey ?: "{$nameAsSnakeCase}_model";
         $morphType = SingleColumnMorphTo::getSingleColumnMorphingType($this, $foreignKey);
 
         return empty($morphType)

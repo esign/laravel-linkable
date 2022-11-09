@@ -22,7 +22,7 @@ class HasDynamicLinkTest extends TestCase
         Schema::create('model_with_regular_morph_to_relations', function (Blueprint $table) {
             $table->id();
             $table->string('dynamic_link_type')->nullable();
-            $table->nullableMorphs('linkable', 'linkable_index');
+            $table->nullableMorphs('dynamic_link_linkable', 'linkable_index');
             $table->string('dynamic_link_url')->nullable();
         });
     }
@@ -40,12 +40,12 @@ class HasDynamicLinkTest extends TestCase
         $post = Post::create(['title' => 'Hello World']);
         $menuItemA = MenuItem::create([
             'dynamic_link_type' => HasDynamicLink::$linkTypeInternal,
-            'linkable_model' => "post:{$post->id}",
+            'dynamic_link_linkable_model' => "post:{$post->id}",
             'dynamic_link_url' => null,
         ]);
         $menuItemB = MenuItem::create([
             'dynamic_link_type' => HasDynamicLink::$linkTypeInternal,
-            'linkable_model' => "post:non-existing-id",
+            'dynamic_link_linkable_model' => "post:non-existing-id",
             'dynamic_link_url' => null,
         ]);
 
@@ -58,12 +58,12 @@ class HasDynamicLinkTest extends TestCase
     {
         $menuItemA = MenuItem::create([
             'dynamic_link_type' => HasDynamicLink::$linkTypeExternal,
-            'linkable_model' => null,
+            'dynamic_link_linkable_model' => null,
             'dynamic_link_url' => 'http://localhost',
         ]);
         $menuItemB = MenuItem::create([
             'dynamic_link_type' => HasDynamicLink::$linkTypeExternal,
-            'linkable_model' => null,
+            'dynamic_link_linkable_model' => null,
             'dynamic_link_url' => null,
         ]);
 
@@ -77,12 +77,12 @@ class HasDynamicLinkTest extends TestCase
         $post = Post::create(['title' => 'Hello World']);
         $menuItemA = MenuItem::create([
             'dynamic_link_type' => HasDynamicLink::$linkTypeInternal,
-            'linkable_model' => "post:{$post->id}",
+            'dynamic_link_linkable_model' => "post:{$post->id}",
             'dynamic_link_url' => null,
         ]);
         $menuItemB = MenuItem::create([
             'dynamic_link_type' => HasDynamicLink::$linkTypeInternal,
-            'linkable_model' => "post:non-existing-id",
+            'dynamic_link_linkable_model' => "post:non-existing-id",
             'dynamic_link_url' => null,
         ]);
 
@@ -95,7 +95,7 @@ class HasDynamicLinkTest extends TestCase
     {
         $menuItem = MenuItem::create([
             'dynamic_link_type' => null,
-            'linkable_model' => null,
+            'dynamic_link_linkable_model' => null,
             'dynamic_link_url' => null,
         ]);
 
@@ -108,12 +108,12 @@ class HasDynamicLinkTest extends TestCase
         $post = Post::create(['title' => 'Hello World']);
         $menuItemA = MenuItem::create([
             'dynamic_link_type' => HasDynamicLink::$linkTypeExternal,
-            'linkable_model' => null,
+            'dynamic_link_linkable_model' => null,
             'dynamic_link_url' => 'http://localhost',
         ]);
         $menuItemB = MenuItem::create([
             'dynamic_link_type' => HasDynamicLink::$linkTypeExternal,
-            'linkable_model' => null,
+            'dynamic_link_linkable_model' => null,
             'dynamic_link_url' => null,
         ]);
 
@@ -126,7 +126,7 @@ class HasDynamicLinkTest extends TestCase
     {
         $menuItem = MenuItem::create([
             'dynamic_link_type' => HasDynamicLink::$linkTypeExternal,
-            'linkable_model' => null,
+            'dynamic_link_linkable_model' => null,
             'dynamic_link_url' => 'http://localhost',
         ]);
 
@@ -141,7 +141,7 @@ class HasDynamicLinkTest extends TestCase
     {
         $menuItem = MenuItem::create([
             'dynamic_link_type' => HasDynamicLink::$linkTypeExternal,
-            'linkable_model' => null,
+            'dynamic_link_linkable_model' => null,
             'dynamic_link_url' => 'http://localhost',
         ]);
 
@@ -153,7 +153,7 @@ class HasDynamicLinkTest extends TestCase
     {
         $menuItem = MenuItem::create([
             'dynamic_link_type' => HasDynamicLink::$linkTypeExternal,
-            'linkable_model' => null,
+            'dynamic_link_linkable_model' => null,
             'dynamic_link_url' => 'http://localhost',
         ]);
 
@@ -166,11 +166,11 @@ class HasDynamicLinkTest extends TestCase
         $post = Post::create(['title' => 'Hello World']);
         $menuItem = ModelWithRegularMorphToRelation::create([
             'dynamic_link_type' => HasDynamicLink::$linkTypeInternal,
-            'linkable_type' => 'post',
-            'linkable_id' => $post->id,
+            'dynamic_link_linkable_type' => 'post',
+            'dynamic_link_linkable_id' => $post->id,
             'dynamic_link_url' => null,
         ]);
 
-        $this->assertTrue($menuItem->linkable->is($post));
+        $this->assertTrue($menuItem->dynamicLinkLinkable->is($post));
     }
 }

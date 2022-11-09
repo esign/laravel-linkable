@@ -14,7 +14,7 @@ class ModelWithRegularMorphToRelation extends Model
     protected $guarded = [];
     protected $table = 'model_with_regular_morph_to_relations';
 
-    public function linkable(): MorphTo
+    public function dynamicLinkLinkable(): MorphTo
     {
         return $this->morphTo();
     }

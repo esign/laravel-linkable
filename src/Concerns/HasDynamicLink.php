@@ -13,7 +13,7 @@ trait HasDynamicLink
     public static string $linkTypeInternal = 'internal';
     public static string $linkTypeExternal = 'external';
 
-    public function linkable(): SingleColumnMorphTo
+    public function dynamicLinkLinkable(): SingleColumnMorphTo
     {
         return $this->singleColumnMorphTo();
     }
@@ -21,7 +21,7 @@ trait HasDynamicLink
     public function dynamicLink(): ?string
     {
         return match ($this->dynamicLinkType()) {
-            static::$linkTypeInternal => $this->linkable instanceof LinkableUrlContract ? $this->linkable->linkableUrl() : null,
+            static::$linkTypeInternal => $this->dynamicLinkLinkable instanceof LinkableUrlContract ? $this->dynamicLinkLinkable->linkableUrl() : null,
             static::$linkTypeExternal => $this->dynamicLinkUrl(),
             default => null,
         };

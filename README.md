@@ -36,12 +36,13 @@ Schema::create('menu_items', function (Blueprint $table) {
     $table->id();
     $table->string('dynamic_link_type')->nullable();
     $table->string('dynamic_link_url')->nullable();
-    $table->string('linkable_model')->nullable();
+    $table->string('dynamic_link_linkable_model')->nullable();
 });
 ```
 
 #### Internal links
-In order to know where a dynamic link should direct to you may implement `LinkableUrlContract` on the related model:
+In case you set the `dynamic_link_type` as `internal` the `dynamic_link_linkable_model` field will be used.
+In order to know where a internal dynamic link should direct to you may implement `LinkableUrlContract` on the related model:
 ```php
 use Esign\Linkable\Contracts\LinkableUrlContract;
 
@@ -56,17 +57,20 @@ class Post extends Model implements LinkableUrlContract
 
 #### External links
 In case you set the `dynamic_link_type` as `external` the `dynamic_link_url` field will be used.
+The value of this field should be a valid URL, e.g. `https://www.example.com`.
 
 ### Storing linkables
 Instead of using a regular `MorphTo` relation, this package ships with a `SingleColumnMorphTo` relation.
-Some CMS, including our own, do not allow for morphable relations based on two columns, e.g. `linkable_type` and `linkable_id`.
-The `SingleColumnMorphTo` combines both the type and id fields into a single column, e.g. `linkable_model`.
+Some CMS, including our own, do not allow for morphable relations based on two columns, e.g. `dynamic_link_linkable_type` and `dynamic_link_linkable_id`.
+The `SingleColumnMorphTo` combines both the type and id fields into a single column, e.g. `dynamic_link_linkable_model`.
 The value for this single column is stored in the `{model}:{id}` format, e.g. `post:1`.
+You're able to use both a fully qualified class name or a value from your application's [morph map](https://laravel.com/docs/9.x/eloquent-relationships#custom-polymorphic-types), just like a regular morphTo relation.
 
 Note that this approach is not ideal and more complex queries using this relationship may not work as expected.
-In case you're able to you may overwrite the `linkable` relation to use Laravel's default `MorphTo` relationship.
+In case you're able to you may overwrite the `dynamicLinkLinkable` relation to use Laravel's default `MorphTo` relationship.
 
-In case you want an overview of all possible linkables you may create a [MySQL view](https://dev.mysql.com/doc/refman/5.7/en/create-view.html) that creates a [union](https://dev.mysql.com/doc/refman/5.7/en/union.html) of all possible models that can be linked to:
+### Linkables overview
+To create an overview of all possible linkables you can create a [MySQL view](https://dev.mysql.com/doc/refman/5.7/en/create-view.html) that creates a [union](https://dev.mysql.com/doc/refman/5.7/en/union.html) of all possible models that can be linked to:
 
 ```php
 DB::statement('
@@ -98,13 +102,13 @@ $post = Post::create();
 $menuItemInternal = MenuItem::create([
     'dynamic_link_type' => HasDynamicLink::$linkTypeInternal,
     'dynamic_link_url' => null,
-    'linkable_model' => "post:{$post->id}",
+    'dynamic_link_linkable_model' => "post:{$post->id}",
 ]);
 
 $menuItemExternal = MenuItem::create([
     'dynamic_link_type' => HasDynamicLink::$linkTypeExternal,
     'dynamic_link_url' => 'https://www.esign.eu',
-    'linkable_model' => null,
+    'dynamic_link_linkable_model' => null,
 ]);
 ```
 The view component will render an `<a>` tag, when a model of the type `external` is given, the `target="_blank"` and `rel="noopener"` attributes will be applied.
