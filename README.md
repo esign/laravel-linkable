@@ -66,8 +66,8 @@ The `SingleColumnMorphTo` combines both the type and id fields into a single col
 The value for this single column is stored in the `{model}:{id}` format, e.g. `post:1`.
 You're able to use both a fully qualified class name or a value from your application's [morph map](https://laravel.com/docs/9.x/eloquent-relationships#custom-polymorphic-types), just like a regular morphTo relation.
 
-Note that this approach is not ideal and more complex queries using this relationship may not work as expected.
-In case you're able to you may overwrite the `dynamicLinkLinkable` relation to use Laravel's default `MorphTo` relationship.
+> **Note**
+> This approach is not ideal and more complex queries using this relationship may not work as expected. In case you're able to you may overwrite the `dynamicLinkLinkable` relation to use Laravel's default `MorphTo` relationship.
 
 ### Linkables overview
 To create an overview of all possible linkables you can create a [MySQL view](https://dev.mysql.com/doc/refman/5.7/en/create-view.html) that creates a [union](https://dev.mysql.com/doc/refman/5.7/en/union.html) of all possible models that can be linked to:
@@ -90,7 +90,11 @@ DB::statement('
     FROM comments
 ');
 ```
-
+This would create the following output:
+| id | linkable_type | linkable_id | label |
+| --- | --- | --- | --- |
+| post:1 | post | 1 | My First Post |
+| comment:1 | comment | 1 | My First Comment |
 ### Rendering dynamic links
 This package ships with a view component that will help you render both internal and external links:
 ```php
