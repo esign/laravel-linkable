@@ -125,6 +125,66 @@ The view component will render an `<a>` tag, when a model of the type `external`
 <a href="https://www.esign.eu" target="_blank" rel="noopener">Esign</a>
 ```
 
+### Extending this package
+#### Creating your own dynamic link types
+This Laravel package offers built-in support for [internal](#internal-links) and [external](#external-links) links by default.
+However, in certain scenarios, you might want to introduce custom link types, such as referencing an anchor tag.
+To achieve this, you can extend the package's functionality.
+1. Extend the `HasDynamicLink` Trait
+```php
+namespace App\Models\Concerns;
+
+use Esign\Linkable\Concerns\HasDynamicLink as BaseHasDynamicLink;
+
+trait HasDynamicLink
+{
+    use BaseHasDynamicLink {
+        dynamicLink as baseDynamicLink;
+    }
+
+    public static string $linkTypeAnchor = 'anchor';
+
+    public function dynamicLink(): ?string
+    {
+        return match ($this->dynamicLinkType()) {
+            static::$linkTypeAnchor => $this->dynamicLinkUrl(),
+            default => $this->baseDynamicLink(),
+        };
+    }
+}
+```
+
+2. Create Your Own View Component
+
+Next, you need to create your own view component that extends the `DynamicLink` component provided by the package.
+Here's how you can do that:
+```php
+namespace App\View\Components;
+
+use App\Models\Concerns\HasDynamicLink;
+use Esign\Linkable\View\Components\DynamicLink as BaseDynamicLink;
+
+class DynamicLink extends BaseDynamicLink
+{
+    public function render(): ?View
+    {
+        return match ($this->model->dynamicLinkType()) {
+            HasDynamicLink::$linkTypeAnchor => view('linkable.dynamic-link-anchor'),
+            default => parent::render(),
+        };
+    }
+}
+```
+
+3. Use Your Custom View Component
+
+With your custom view component in place, you can now use it in your Blade templates instead of the one provided by the package:
+```blade
+<x-dynamic-link :model="$modelReferencingAnchorTag">
+    My anchor tag
+</x-dynamic-link>
+```
+
 
 ### Testing
 
