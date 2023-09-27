@@ -176,6 +176,10 @@ class DynamicLink extends BaseDynamicLink
 }
 ```
 
+```blade
+<a {{ $attributes->merge(['href' => $model->dynamicLink()]) }}>{{ $slot }}</a>
+```
+
 3. Use Your Custom View Component
 
 With your custom view component in place, you can now use it in your Blade templates instead of the one provided by the package:
