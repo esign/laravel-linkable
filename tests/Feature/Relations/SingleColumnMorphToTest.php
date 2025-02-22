@@ -2,6 +2,7 @@
 
 namespace Esign\Linkable\Tests\Feature\Relations;
 
+use PHPUnit\Framework\Attributes\Test;
 use Error;
 use Esign\Linkable\Tests\Support\Models\MenuItem;
 use Esign\Linkable\Tests\Support\Models\Post;
@@ -9,12 +10,12 @@ use Esign\Linkable\Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use PDOException;
 
-class SingleColumnMorphToTest extends TestCase
+final class SingleColumnMorphToTest extends TestCase
 {
     use DatabaseMigrations;
 
-    /** @test */
-    public function it_can_query_a_related_model()
+    #[Test]
+    public function it_can_query_a_related_model(): void
     {
         $post = Post::create(['title' => 'Hello World']);
         $menuItem = MenuItem::create(['dynamic_link_linkable_model' => "post:{$post->id}"]);
@@ -22,24 +23,24 @@ class SingleColumnMorphToTest extends TestCase
         $this->assertTrue($menuItem->dynamicLinkLinkable->is($post));
     }
 
-    /** @test */
-    public function it_can_return_null_if_a_related_model_does_not_exist()
+    #[Test]
+    public function it_can_return_null_if_a_related_model_does_not_exist(): void
     {
         $menuItem = MenuItem::create(['dynamic_link_linkable_model' => "post:non-existing-id"]);
 
         $this->assertNull($menuItem->dynamicLinkLinkable);
     }
 
-    /** @test */
-    public function it_can_return_null_if_the_foreign_key_is_null()
+    #[Test]
+    public function it_can_return_null_if_the_foreign_key_is_null(): void
     {
         $menuItem = MenuItem::create(['dynamic_link_linkable_model' => null]);
 
         $this->assertNull($menuItem->dynamicLinkLinkable);
     }
 
-    /** @test */
-    public function it_can_throw_an_exception_if_the_foreign_key_is_empty()
+    #[Test]
+    public function it_can_throw_an_exception_if_the_foreign_key_is_empty(): void
     {
         $this->expectException(PDOException::class);
 
@@ -48,8 +49,8 @@ class SingleColumnMorphToTest extends TestCase
         $this->assertNull($menuItem->dynamicLinkLinkable);
     }
 
-    /** @test */
-    public function it_can_throw_an_exception_if_the_model_does_not_exist()
+    #[Test]
+    public function it_can_throw_an_exception_if_the_model_does_not_exist(): void
     {
         $this->expectException(Error::class);
         $this->expectExceptionMessage('Class "article" not found');
@@ -58,8 +59,8 @@ class SingleColumnMorphToTest extends TestCase
         $this->assertNull($menuItem->dynamicLinkLinkable);
     }
 
-    /** @test */
-    public function it_can_eager_load_related_models()
+    #[Test]
+    public function it_can_eager_load_related_models(): void
     {
         $postA = Post::create(['title' => 'Hello World']);
         $postB = Post::create(['title' => 'Hello World 2']);
@@ -72,8 +73,8 @@ class SingleColumnMorphToTest extends TestCase
         $this->assertTrue($menuItemLinkables->contains($postB));
     }
 
-    /** @test */
-    public function it_can_associate_a_model()
+    #[Test]
+    public function it_can_associate_a_model(): void
     {
         $post = Post::create(['title' => 'Hello World']);
         $menuItem = MenuItem::create(['dynamic_link_linkable_model' => null]);
@@ -83,8 +84,8 @@ class SingleColumnMorphToTest extends TestCase
         $this->assertTrue($menuItem->dynamicLinkLinkable->is($post));
     }
 
-    /** @test */
-    public function it_can_associate_a_null_value()
+    #[Test]
+    public function it_can_associate_a_null_value(): void
     {
         $post = Post::create(['title' => 'Hello World']);
         $menuItem = MenuItem::create(['dynamic_link_linkable_model' => "post:{$post->id}"]);
@@ -94,8 +95,8 @@ class SingleColumnMorphToTest extends TestCase
         $this->assertNull($menuItem->dynamicLinkLinkable);
     }
 
-    /** @test */
-    public function it_can_dissociate_a_model()
+    #[Test]
+    public function it_can_dissociate_a_model(): void
     {
         $post = Post::create(['title' => 'Hello World']);
         $menuItem = MenuItem::create(['dynamic_link_linkable_model' => "post:{$post->id}"]);
