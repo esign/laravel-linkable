@@ -12,7 +12,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Support\Facades\Schema;
 
-class HasDynamicLinkTest extends TestCase
+final class HasDynamicLinkTest extends TestCase
 {
     use DatabaseMigrations;
 

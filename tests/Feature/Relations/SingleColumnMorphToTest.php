@@ -10,7 +10,7 @@ use Esign\Linkable\Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use PDOException;
 
-class SingleColumnMorphToTest extends TestCase
+final class SingleColumnMorphToTest extends TestCase
 {
     use DatabaseMigrations;
 

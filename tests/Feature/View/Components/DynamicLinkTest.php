@@ -11,7 +11,7 @@ use Esign\Linkable\Tests\TestCase;
 use Illuminate\Foundation\Testing\Concerns\InteractsWithViews;
 use Illuminate\View\ViewException;
 
-class DynamicLinkTest extends TestCase
+final class DynamicLinkTest extends TestCase
 {
     use InteractsWithViews;
 
