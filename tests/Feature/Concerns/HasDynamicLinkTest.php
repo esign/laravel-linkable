@@ -36,7 +36,7 @@ class HasDynamicLinkTest extends TestCase
     }
 
     #[Test]
-    public function it_can_check_if_it_has_an_internal_link()
+    public function it_can_check_if_it_has_an_internal_link(): void
     {
         $post = Post::create(['title' => 'Hello World']);
         $menuItemA = MenuItem::create([
@@ -55,7 +55,7 @@ class HasDynamicLinkTest extends TestCase
     }
 
     #[Test]
-    public function it_can_check_if_it_has_an_external_link()
+    public function it_can_check_if_it_has_an_external_link(): void
     {
         $menuItemA = MenuItem::create([
             'dynamic_link_type' => HasDynamicLink::$linkTypeExternal,
@@ -73,7 +73,7 @@ class HasDynamicLinkTest extends TestCase
     }
 
     #[Test]
-    public function it_can_get_an_internal_link()
+    public function it_can_get_an_internal_link(): void
     {
         $post = Post::create(['title' => 'Hello World']);
         $menuItemA = MenuItem::create([
@@ -92,7 +92,7 @@ class HasDynamicLinkTest extends TestCase
     }
 
     #[Test]
-    public function it_can_get_null_as_a_link_when_the_link_type_isnt_internal_or_external()
+    public function it_can_get_null_as_a_link_when_the_link_type_isnt_internal_or_external(): void
     {
         $menuItem = MenuItem::create([
             'dynamic_link_type' => null,
@@ -104,7 +104,7 @@ class HasDynamicLinkTest extends TestCase
     }
 
     #[Test]
-    public function it_can_get_an_external_url()
+    public function it_can_get_an_external_url(): void
     {
         $post = Post::create(['title' => 'Hello World']);
         $menuItemA = MenuItem::create([
@@ -123,7 +123,7 @@ class HasDynamicLinkTest extends TestCase
     }
 
     #[Test]
-    public function it_can_check_if_a_link_is_of_type()
+    public function it_can_check_if_a_link_is_of_type(): void
     {
         $menuItem = MenuItem::create([
             'dynamic_link_type' => HasDynamicLink::$linkTypeExternal,
@@ -138,7 +138,7 @@ class HasDynamicLinkTest extends TestCase
     }
 
     #[Test]
-    public function it_can_get_the_dynamic_link_type()
+    public function it_can_get_the_dynamic_link_type(): void
     {
         $menuItem = MenuItem::create([
             'dynamic_link_type' => HasDynamicLink::$linkTypeExternal,
@@ -150,7 +150,7 @@ class HasDynamicLinkTest extends TestCase
     }
 
     #[Test]
-    public function it_can_get_the_dynamic_link_url()
+    public function it_can_get_the_dynamic_link_url(): void
     {
         $menuItem = MenuItem::create([
             'dynamic_link_type' => HasDynamicLink::$linkTypeExternal,
@@ -162,7 +162,7 @@ class HasDynamicLinkTest extends TestCase
     }
 
     #[Test]
-    public function it_can_use_a_regular_morph_to_relation()
+    public function it_can_use_a_regular_morph_to_relation(): void
     {
         $post = Post::create(['title' => 'Hello World']);
         $menuItem = ModelWithRegularMorphToRelation::create([

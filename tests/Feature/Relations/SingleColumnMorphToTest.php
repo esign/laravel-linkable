@@ -15,7 +15,7 @@ class SingleColumnMorphToTest extends TestCase
     use DatabaseMigrations;
 
     #[Test]
-    public function it_can_query_a_related_model()
+    public function it_can_query_a_related_model(): void
     {
         $post = Post::create(['title' => 'Hello World']);
         $menuItem = MenuItem::create(['dynamic_link_linkable_model' => "post:{$post->id}"]);
@@ -24,7 +24,7 @@ class SingleColumnMorphToTest extends TestCase
     }
 
     #[Test]
-    public function it_can_return_null_if_a_related_model_does_not_exist()
+    public function it_can_return_null_if_a_related_model_does_not_exist(): void
     {
         $menuItem = MenuItem::create(['dynamic_link_linkable_model' => "post:non-existing-id"]);
 
@@ -32,7 +32,7 @@ class SingleColumnMorphToTest extends TestCase
     }
 
     #[Test]
-    public function it_can_return_null_if_the_foreign_key_is_null()
+    public function it_can_return_null_if_the_foreign_key_is_null(): void
     {
         $menuItem = MenuItem::create(['dynamic_link_linkable_model' => null]);
 
@@ -40,7 +40,7 @@ class SingleColumnMorphToTest extends TestCase
     }
 
     #[Test]
-    public function it_can_throw_an_exception_if_the_foreign_key_is_empty()
+    public function it_can_throw_an_exception_if_the_foreign_key_is_empty(): void
     {
         $this->expectException(PDOException::class);
 
@@ -50,7 +50,7 @@ class SingleColumnMorphToTest extends TestCase
     }
 
     #[Test]
-    public function it_can_throw_an_exception_if_the_model_does_not_exist()
+    public function it_can_throw_an_exception_if_the_model_does_not_exist(): void
     {
         $this->expectException(Error::class);
         $this->expectExceptionMessage('Class "article" not found');
@@ -60,7 +60,7 @@ class SingleColumnMorphToTest extends TestCase
     }
 
     #[Test]
-    public function it_can_eager_load_related_models()
+    public function it_can_eager_load_related_models(): void
     {
         $postA = Post::create(['title' => 'Hello World']);
         $postB = Post::create(['title' => 'Hello World 2']);
@@ -74,7 +74,7 @@ class SingleColumnMorphToTest extends TestCase
     }
 
     #[Test]
-    public function it_can_associate_a_model()
+    public function it_can_associate_a_model(): void
     {
         $post = Post::create(['title' => 'Hello World']);
         $menuItem = MenuItem::create(['dynamic_link_linkable_model' => null]);
@@ -85,7 +85,7 @@ class SingleColumnMorphToTest extends TestCase
     }
 
     #[Test]
-    public function it_can_associate_a_null_value()
+    public function it_can_associate_a_null_value(): void
     {
         $post = Post::create(['title' => 'Hello World']);
         $menuItem = MenuItem::create(['dynamic_link_linkable_model' => "post:{$post->id}"]);
@@ -96,7 +96,7 @@ class SingleColumnMorphToTest extends TestCase
     }
 
     #[Test]
-    public function it_can_dissociate_a_model()
+    public function it_can_dissociate_a_model(): void
     {
         $post = Post::create(['title' => 'Hello World']);
         $menuItem = MenuItem::create(['dynamic_link_linkable_model' => "post:{$post->id}"]);

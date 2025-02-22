@@ -16,7 +16,7 @@ class DynamicLinkTest extends TestCase
     use InteractsWithViews;
 
     #[Test]
-    public function it_can_render_the_view_for_an_external_link()
+    public function it_can_render_the_view_for_an_external_link(): void
     {
         $menuItem = MenuItem::create([
             'dynamic_link_type' => HasDynamicLink::$linkTypeExternal,
@@ -36,7 +36,7 @@ class DynamicLinkTest extends TestCase
     }
 
     #[Test]
-    public function it_can_render_the_view_for_an_internal_link()
+    public function it_can_render_the_view_for_an_internal_link(): void
     {
         $post = Post::create(['title' => 'Hello World']);
         $menuItem = MenuItem::create([
@@ -57,7 +57,7 @@ class DynamicLinkTest extends TestCase
     }
 
     #[Test]
-    public function it_can_render_null_for_a_non_existing_dynamic_link_type()
+    public function it_can_render_null_for_a_non_existing_dynamic_link_type(): void
     {
         $menuItem = MenuItem::create([
             'dynamic_link_type' => 'non-existing-link-type',
@@ -74,7 +74,7 @@ class DynamicLinkTest extends TestCase
     }
 
     #[Test]
-    public function it_can_throw_an_exception_when_given_a_model_that_does_not_implement_the_dynamic_link_trait()
+    public function it_can_throw_an_exception_when_given_a_model_that_does_not_implement_the_dynamic_link_trait(): void
     {
         $this->expectException(ViewException::class);
         $this->expectExceptionMessage(sprintf(
