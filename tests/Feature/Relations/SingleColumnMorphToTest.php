@@ -2,6 +2,7 @@
 
 namespace Esign\Linkable\Tests\Feature\Relations;
 
+use PHPUnit\Framework\Attributes\Test;
 use Error;
 use Esign\Linkable\Tests\Support\Models\MenuItem;
 use Esign\Linkable\Tests\Support\Models\Post;
@@ -13,7 +14,7 @@ class SingleColumnMorphToTest extends TestCase
 {
     use DatabaseMigrations;
 
-    /** @test */
+    #[Test]
     public function it_can_query_a_related_model()
     {
         $post = Post::create(['title' => 'Hello World']);
@@ -22,7 +23,7 @@ class SingleColumnMorphToTest extends TestCase
         $this->assertTrue($menuItem->dynamicLinkLinkable->is($post));
     }
 
-    /** @test */
+    #[Test]
     public function it_can_return_null_if_a_related_model_does_not_exist()
     {
         $menuItem = MenuItem::create(['dynamic_link_linkable_model' => "post:non-existing-id"]);
@@ -30,7 +31,7 @@ class SingleColumnMorphToTest extends TestCase
         $this->assertNull($menuItem->dynamicLinkLinkable);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_return_null_if_the_foreign_key_is_null()
     {
         $menuItem = MenuItem::create(['dynamic_link_linkable_model' => null]);
@@ -38,7 +39,7 @@ class SingleColumnMorphToTest extends TestCase
         $this->assertNull($menuItem->dynamicLinkLinkable);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_throw_an_exception_if_the_foreign_key_is_empty()
     {
         $this->expectException(PDOException::class);
@@ -48,7 +49,7 @@ class SingleColumnMorphToTest extends TestCase
         $this->assertNull($menuItem->dynamicLinkLinkable);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_throw_an_exception_if_the_model_does_not_exist()
     {
         $this->expectException(Error::class);
@@ -58,7 +59,7 @@ class SingleColumnMorphToTest extends TestCase
         $this->assertNull($menuItem->dynamicLinkLinkable);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_eager_load_related_models()
     {
         $postA = Post::create(['title' => 'Hello World']);
@@ -72,7 +73,7 @@ class SingleColumnMorphToTest extends TestCase
         $this->assertTrue($menuItemLinkables->contains($postB));
     }
 
-    /** @test */
+    #[Test]
     public function it_can_associate_a_model()
     {
         $post = Post::create(['title' => 'Hello World']);
@@ -83,7 +84,7 @@ class SingleColumnMorphToTest extends TestCase
         $this->assertTrue($menuItem->dynamicLinkLinkable->is($post));
     }
 
-    /** @test */
+    #[Test]
     public function it_can_associate_a_null_value()
     {
         $post = Post::create(['title' => 'Hello World']);
@@ -94,7 +95,7 @@ class SingleColumnMorphToTest extends TestCase
         $this->assertNull($menuItem->dynamicLinkLinkable);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_dissociate_a_model()
     {
         $post = Post::create(['title' => 'Hello World']);

@@ -2,6 +2,7 @@
 
 namespace Esign\Linkable\Tests\Feature\View\Components;
 
+use PHPUnit\Framework\Attributes\Test;
 use Esign\Linkable\Concerns\HasDynamicLink;
 use Esign\Linkable\Tests\Support\Models\MenuItem;
 use Esign\Linkable\Tests\Support\Models\ModelWithoutDynamicLinkTrait;
@@ -14,7 +15,7 @@ class DynamicLinkTest extends TestCase
 {
     use InteractsWithViews;
 
-    /** @test */
+    #[Test]
     public function it_can_render_the_view_for_an_external_link()
     {
         $menuItem = MenuItem::create([
@@ -34,7 +35,7 @@ class DynamicLinkTest extends TestCase
         );
     }
 
-    /** @test */
+    #[Test]
     public function it_can_render_the_view_for_an_internal_link()
     {
         $post = Post::create(['title' => 'Hello World']);
@@ -55,7 +56,7 @@ class DynamicLinkTest extends TestCase
         );
     }
 
-    /** @test */
+    #[Test]
     public function it_can_render_null_for_a_non_existing_dynamic_link_type()
     {
         $menuItem = MenuItem::create([
@@ -72,7 +73,7 @@ class DynamicLinkTest extends TestCase
         $component->assertSee(null);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_throw_an_exception_when_given_a_model_that_does_not_implement_the_dynamic_link_trait()
     {
         $this->expectException(ViewException::class);

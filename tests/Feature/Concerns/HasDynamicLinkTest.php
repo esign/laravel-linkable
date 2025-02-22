@@ -2,6 +2,7 @@
 
 namespace Esign\Linkable\Tests\Feature\Concerns;
 
+use PHPUnit\Framework\Attributes\Test;
 use Esign\Linkable\Concerns\HasDynamicLink;
 use Esign\Linkable\Tests\Support\Models\MenuItem;
 use Esign\Linkable\Tests\Support\Models\ModelWithRegularMorphToRelation;
@@ -34,7 +35,7 @@ class HasDynamicLinkTest extends TestCase
         parent::tearDown();
     }
 
-    /** @test */
+    #[Test]
     public function it_can_check_if_it_has_an_internal_link()
     {
         $post = Post::create(['title' => 'Hello World']);
@@ -53,7 +54,7 @@ class HasDynamicLinkTest extends TestCase
         $this->assertFalse($menuItemB->hasDynamicLink());
     }
 
-    /** @test */
+    #[Test]
     public function it_can_check_if_it_has_an_external_link()
     {
         $menuItemA = MenuItem::create([
@@ -71,7 +72,7 @@ class HasDynamicLinkTest extends TestCase
         $this->assertFalse($menuItemB->hasDynamicLink());
     }
 
-    /** @test */
+    #[Test]
     public function it_can_get_an_internal_link()
     {
         $post = Post::create(['title' => 'Hello World']);
@@ -90,7 +91,7 @@ class HasDynamicLinkTest extends TestCase
         $this->assertNull($menuItemB->dynamicLink());
     }
 
-    /** @test */
+    #[Test]
     public function it_can_get_null_as_a_link_when_the_link_type_isnt_internal_or_external()
     {
         $menuItem = MenuItem::create([
@@ -102,7 +103,7 @@ class HasDynamicLinkTest extends TestCase
         $this->assertNull($menuItem->dynamicLink());
     }
 
-    /** @test */
+    #[Test]
     public function it_can_get_an_external_url()
     {
         $post = Post::create(['title' => 'Hello World']);
@@ -121,7 +122,7 @@ class HasDynamicLinkTest extends TestCase
         $this->assertNull($menuItemB->dynamicLink());
     }
 
-    /** @test */
+    #[Test]
     public function it_can_check_if_a_link_is_of_type()
     {
         $menuItem = MenuItem::create([
@@ -136,7 +137,7 @@ class HasDynamicLinkTest extends TestCase
         $this->assertFalse($menuItem->dynamicLinkIsOfType([HasDynamicLink::$linkTypeInternal]));
     }
 
-    /** @test */
+    #[Test]
     public function it_can_get_the_dynamic_link_type()
     {
         $menuItem = MenuItem::create([
@@ -148,7 +149,7 @@ class HasDynamicLinkTest extends TestCase
         $this->assertEquals(HasDynamicLink::$linkTypeExternal, $menuItem->dynamicLinkType());
     }
 
-    /** @test */
+    #[Test]
     public function it_can_get_the_dynamic_link_url()
     {
         $menuItem = MenuItem::create([
@@ -160,7 +161,7 @@ class HasDynamicLinkTest extends TestCase
         $this->assertEquals('http://localhost', $menuItem->dynamicLinkUrl());
     }
 
-    /** @test */
+    #[Test]
     public function it_can_use_a_regular_morph_to_relation()
     {
         $post = Post::create(['title' => 'Hello World']);
